@@ -1,0 +1,7 @@
+>@.class @.java
+!javac @.java
+$
+
+>@.class
+!java @
+$
