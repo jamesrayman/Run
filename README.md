@@ -34,7 +34,7 @@ All rules are specified in files located in the `rules` directory. Each rule is 
 
 | First character | Significance |
 |-----|------------------------|
-| `!` | The rest of that line is executed as a bash command. If any command fails, `run` stops and exits with status 1. |
+| `!` | The rest of that line is executed as a bash command. If any command fails, `run` stops and exits with the same exit status. |
 | `>` | It will mark the file following it as a compiled object. Following on the same line is the list of prerestiquites for that object. The following block of lines specify how to compile that object. Compilation only occurs if objects are not up to date. |
 | `$` | The line ends a block. |
 | `#` | The line is a comment. |
