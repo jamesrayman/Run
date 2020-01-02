@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# $1 = run_dir
+# $2 = target
+
+NEW_CONTENTS=""
+NEWLINE=$'\n'
+
+while IFS="" read -r FILE || [[ -n "$FILE" ]]
+do
+    FILE_DIR="`dirname "$FILE"`"
+    if [[ "${FILE_DIR:0:${#2}}" = "$2" ]]
+    then
+        if [[ -f "$FILE" ]]
+        then
+            rm "$FILE"
+        fi
+    else
+        NEW_CONTENTS="$NEW_CONTENTS$FILE$NEWLINE"
+    fi
+done < "$1/dat/obj"
+
+printf '%s' "$NEW_CONTENTS" > "$1/dat/obj"
