@@ -8,7 +8,7 @@ A universal utility for running programs
 run filename.ext
 ```
 
-Run the program `filename.ext` using the rule `ext`, which is specified in `rules/ext`.
+Run the program `filename.ext` using the rule `ext`, which is specified in `rule/ext`.
 
 ```text
 run -r ext2 filename.ext
@@ -42,7 +42,7 @@ Display help.
 
 ## Rule Specification
 
-All rules are specified in files located in the `rules` directory. Each rule is a series of commands, one per line. The type of command is determined by the first character in the line.
+All rules are specified in files located in the `rule` directory. Each rule is a series of commands, one per line. The type of command is determined by the first character in the line.
 
 | First character | Significance |
 |-----|------------------------|
