@@ -1,2 +1,5 @@
 # data files
 dat/
+
+# test files
+test/
