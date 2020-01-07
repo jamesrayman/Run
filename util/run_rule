@@ -1,0 +1,56 @@
+#!/bin/bash
+
+# $1 = run_dir
+# $2 = rule
+# $3 = target
+
+SKIP=false
+
+while IFS="" read -r CMD
+do
+    CMD=${CMD//@/$3}
+    CMD_TYPE="${CMD:0:1}"
+
+    if [[ "$CMD_TYPE" == "$" ]]
+    then
+        if [[ "$SKIP" == false ]]
+        then
+            echo "$OBJ" >> "$1/dat/obj"
+        fi
+
+        SKIP=false
+    fi
+
+    if [[ "$CMD_TYPE" == "!" && "$SKIP" == false ]]
+    then
+        ${CMD:1} || exit $?
+    fi
+
+    if [[ "$CMD_TYPE" == ">" ]]
+    then
+        read -ra FILE_ARR <<< "${CMD:1}"
+        OBJ=${FILE_ARR[0]}
+        PRE_ARRAY=${FILE_ARR[*]:1}
+
+        NEED_COMPILE=false
+
+        for PRE in ${PRE_ARRAY[*]}
+        do
+            if [[ ! -f "$PRE" ]]
+            then
+                echo "File $PRE does not exist."
+                exit 1
+            fi
+
+            if [[ ! -f "$OBJ" || "$PRE" -nt "$OBJ" ]]
+            then
+                NEED_COMPILE=true
+            fi
+        done
+
+        if [[ "$NEED_COMPILE" == false ]]
+        then
+            SKIP=true
+        fi
+    fi
+done < "$1/rule/$2"

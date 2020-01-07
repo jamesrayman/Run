@@ -1,4 +1,73 @@
 #!/bin/bash
 
-g++ -o $1 $1.cpp
-./$1
+RUN_DIR="$(realpath "$0" | xargs dirname | xargs dirname)"
+HELP="View help with 'run -h'."
+
+if [[ $# -lt 1 ]]
+then
+    echo "No arguments provided. $HELP"
+    exit 1
+fi
+
+if [[ "$1" == "-h" || "$1" == "--help" || "$1" == "help" ]]
+then
+    echo "Help will be written soon"
+    exit 0
+fi
+
+if [[ "$1" == "-c" || "$1" == "--clean" || "$1" == "clean" ]]
+then
+    if [[ $# -lt 2 ]]
+    then
+        TARGET="/"
+    else
+        TARGET="$(realpath "$2")"
+    fi
+    "$RUN_DIR/util/clean" "$RUN_DIR" "$TARGET"
+
+    exit 0
+fi
+
+if [[ "$1" == "-r" || "$1" == "--rule" ]]
+then
+    if [[ $# -lt 3 ]]
+    then
+        echo "Not enough arguments provided. $HELP"
+        exit 1
+    fi
+
+    RULE="$2"
+    FILE="$(realpath "$3")"
+
+    if [[ ! -f "$FILE" ]]
+    then
+        echo "$FILE not found."
+        exit 1
+    fi
+
+    "$RUN_DIR/util/run_rule" "$RUN_DIR" "$RULE" "${FILE%.*}" || exit $?
+    exit 0
+fi
+
+if [[ "${1:0:1}" == "-" ]]
+then
+    echo "Unknown flag. $HELP"
+    exit 1
+fi
+
+FILE="$(realpath "$1")"
+RULE="${FILE##*.}"
+
+if [[ "$FILE" != *.* ]]
+then
+    echo "Rule not specified."
+    exit 1
+fi
+
+if [[ ! -f "$FILE" ]]
+then
+    echo "$FILE not found."
+    exit 1
+fi
+
+"$RUN_DIR/util/run_rule" "$RUN_DIR" "$RULE" "${FILE%.*}" || exit $?

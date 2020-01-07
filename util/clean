@@ -8,8 +8,8 @@ NEWLINE=$'\n'
 
 while IFS="" read -r FILE || [[ -n "$FILE" ]]
 do
-    FILE_DIR="`dirname "$FILE"`"
-    if [[ "${FILE_DIR:0:${#2}}" = "$2" ]]
+    FILE_DIR="$(dirname "$FILE")"
+    if [[ "$FILE_DIR" == "$2"* ]]
     then
         if [[ -f "$FILE" ]]
         then
@@ -20,4 +20,4 @@ do
     fi
 done < "$1/dat/obj"
 
-printf '%s' "$NEW_CONTENTS" > "$1/dat/obj"
+printf %s "$NEW_CONTENTS" > "$1/dat/obj"
