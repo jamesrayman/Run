@@ -23,7 +23,7 @@ do
 
     if [[ "$CMD_TYPE" == "!" && "$SKIP" == false ]]
     then
-        ${CMD:1} || exit $?
+        ${CMD:1} </dev/tty || exit $?
     fi
 
     if [[ "$CMD_TYPE" == ">" ]]
