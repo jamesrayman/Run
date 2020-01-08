@@ -6,7 +6,7 @@
 
 SKIP=false
 
-while IFS="" read -r CMD
+while IFS="" read -r CMD <&3
 do
     CMD=${CMD//@/$3}
     CMD_TYPE="${CMD:0:1}"
@@ -23,7 +23,7 @@ do
 
     if [[ "$CMD_TYPE" == "!" && "$SKIP" == false ]]
     then
-        ${CMD:1} </dev/tty || exit $?
+        ${CMD:1} || exit $?
     fi
 
     if [[ "$CMD_TYPE" == ">" ]]
@@ -53,4 +53,4 @@ do
             SKIP=true
         fi
     fi
-done < "$1/rule/$2"
+done 3< "$1/rule/$2"
