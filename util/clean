@@ -9,6 +9,7 @@ NEWLINE=$'\n'
 while IFS="" read -r FILE || [[ -n "$FILE" ]]
 do
     FILE_DIR="$(dirname "$FILE")"
+
     if [[ "$FILE_DIR" == "$2"* ]]
     then
         if [[ -f "$FILE" ]]

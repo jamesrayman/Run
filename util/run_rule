@@ -6,9 +6,11 @@
 
 SKIP=false
 
-while IFS="" read -r CMD <&3
+while IFS="" read -r CMD <&3 || [[ -n "$CMD" ]]
 do
+    CMD=${CMD//@@/$1}
     CMD=${CMD//@/$3}
+    
     CMD_TYPE="${CMD:0:1}"
 
     if [[ "$CMD_TYPE" == "$" ]]
