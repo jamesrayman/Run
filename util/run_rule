@@ -40,7 +40,7 @@ do
         do
             if [[ ! -f "$PRE" ]]
             then
-                printf "File '%s' does not exist." "$PRE"
+                printf "Prestiquite '%s' does not exist.\n" "$PRE"
                 exit 1
             fi
 

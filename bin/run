@@ -5,7 +5,7 @@ HELP="View help with 'run help'."
 
 if [[ $# -lt 1 ]]
 then
-    printf "No arguments provided. %s" "$HELP"
+    printf "No arguments provided. %s\n" "$HELP"
     exit 1
 fi
 
@@ -29,14 +29,14 @@ then
     
     if [[ ! -f "$TARGET" && ! -d "$TARGET" ]]
     then
-        printf "Target '%s' not found." "$TARGET"
+        printf "Target '%s' not found.\n" "$TARGET"
         exit 1
     fi
 fi
    
 if [[ ! -f "$RUN_DIR/rule/$RULE" ]]
 then
-    printf "Rule '%s' not found." "$RULE"
+    printf "Rule '%s' not found.\n" "$RULE"
     exit 1
 fi
 
