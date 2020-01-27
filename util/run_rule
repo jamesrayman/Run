@@ -17,7 +17,10 @@ do
     then
         if [[ "$skip" == false ]]
         then
-            printf "%s\n" "$obj" >> "$1/dat/obj"
+            if ! grep -q "$obj" "$1/dat/obj"
+            then
+                printf "%s\n" "$obj" >> "$1/dat/obj"
+            fi
         fi
 
         skip=false
