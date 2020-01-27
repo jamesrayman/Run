@@ -50,3 +50,7 @@ Display the help file. No target is expected.
 ### `clean`
 
 Delete all compiled objects in the given directory or all compiled objects if no directory is given.
+
+## Notes
+
+Packages are not supported for Java.
