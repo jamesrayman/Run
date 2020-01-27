@@ -15,12 +15,9 @@ do
 
     if [[ "$cmd_type" == "$" ]]
     then
-        if [[ "$skip" == false ]]
+        if [[ "$skip" == false ]] && ! grep -q "$obj" "$1/dat/obj"
         then
-            if ! grep -q "$obj" "$1/dat/obj"
-            then
-                printf "%s\n" "$obj" >> "$1/dat/obj"
-            fi
+            printf "%s\n" "$obj" >> "$1/dat/obj"
         fi
 
         skip=false
