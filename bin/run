@@ -11,25 +11,25 @@ fi
 
 if [[ "$1" == *.* ]]
 then
-    FILE="$1"
-    RULE="${FILE##*.}"
+    TARGET="$1"
+    RULE="${TARGET##*.}"
 else
     RULE="$1"
     if [[ $# -ge 2 ]]
     then
-        FILE="$2"
+        TARGET="$2"
     else
-        FILE=""
+        TARGET=""
     fi
 fi
 
-if [[ "" != "$FILE" ]]
+if [[ "" != "$TARGET" ]]
 then
-    FILE="$(realpath "$FILE")"
+    TARGET="$(realpath "$TARGET")"
     
-    if [[ ! -f "$FILE" ]]
+    if [[ ! -f "$TARGET" && ! -d "$TARGET" ]]
     then
-        echo "File '$FILE' not found."
+        echo "Target '$TARGET' not found."
         exit 1
     fi
 fi
@@ -40,4 +40,4 @@ then
     exit 1
 fi
 
-"$RUN_DIR/util/run_rule" "$RUN_DIR" "$RULE" "${FILE%.*}" <&0 || exit $?
+"$RUN_DIR/util/run_rule" "$RUN_DIR" "$RULE" "${TARGET%.*}" <&0 || exit $?
