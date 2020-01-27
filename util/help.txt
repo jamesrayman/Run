@@ -1,0 +1,15 @@
+Usage: run target.ext
+           (run target with rule ext)
+       run ext target
+           (run target with rule ext)
+       run rule
+           (run rule with empty target)
+
+Language rules: cpp py java
+
+Special rules: run help
+                   (print help file)
+               run clean
+                   (delete all compiled objects)
+               run clean dir
+                   (delete all compiled objects in dir)
