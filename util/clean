@@ -21,4 +21,4 @@ do
     fi
 done < "$1/dat/obj"
 
-printf %s "$NEW_CONTENTS" > "$1/dat/obj"
+printf '%s' "$NEW_CONTENTS" > "$1/dat/obj"

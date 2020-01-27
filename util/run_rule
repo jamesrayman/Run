@@ -17,7 +17,7 @@ do
     then
         if [[ "$SKIP" == false ]]
         then
-            echo "$OBJ" >> "$1/dat/obj"
+            printf "%s\n" "$OBJ" >> "$1/dat/obj"
         fi
 
         SKIP=false
@@ -40,7 +40,7 @@ do
         do
             if [[ ! -f "$PRE" ]]
             then
-                echo "File $PRE does not exist."
+                printf "File '%s' does not exist." "$PRE"
                 exit 1
             fi
 
