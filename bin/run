@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 run_dir="$(realpath "$0" | xargs dirname | xargs dirname)"
 help="View help with 'run help'."
