@@ -4,55 +4,55 @@
 # $2 = rule
 # $3 = target
 
-SKIP=false
+skip=false
 
-while IFS="" read -r CMD <&3 || [[ -n "$CMD" ]]
+while IFS="" read -r cmd <&3 || [[ -n "$cmd" ]]
 do
-    CMD=${CMD//@@/$1}
-    CMD=${CMD//@/$3}
+    cmd=${cmd//@@/$1}
+    cmd=${cmd//@/$3}
     
-    CMD_TYPE="${CMD:0:1}"
+    cmd_type="${cmd:0:1}"
 
-    if [[ "$CMD_TYPE" == "$" ]]
+    if [[ "$cmd_type" == "$" ]]
     then
-        if [[ "$SKIP" == false ]]
+        if [[ "$skip" == false ]]
         then
-            printf "%s\n" "$OBJ" >> "$1/dat/obj"
+            printf "%s\n" "$obj" >> "$1/dat/obj"
         fi
 
-        SKIP=false
+        skip=false
     fi
 
-    if [[ "$CMD_TYPE" == "!" && "$SKIP" == false ]]
+    if [[ "$cmd_type" == "!" && "$skip" == false ]]
     then
-        eval "${CMD:1}" || exit $?
+        eval "${cmd:1}" || exit $?
     fi
 
-    if [[ "$CMD_TYPE" == ">" ]]
+    if [[ "$cmd_type" == ">" ]]
     then
-        read -ra FILE_ARR <<< "${CMD:1}"
-        OBJ=${FILE_ARR[0]}
-        PRE_ARRAY=${FILE_ARR[*]:1}
+        read -ra file_arr <<< "${cmd:1}"
+        obj=${file_arr[0]}
+        pre_array=${file_arr[*]:1}
 
-        NEED_COMPILE=false
+        need_compile=false
 
-        for PRE in ${PRE_ARRAY[*]}
+        for pre in ${pre_array[*]}
         do
-            if [[ ! -f "$PRE" ]]
+            if [[ ! -f "$pre" ]]
             then
-                printf "Prestiquite '%s' does not exist.\n" "$PRE"
+                printf "Prestiquite '%s' does not exist.\n" "$pre"
                 exit 1
             fi
 
-            if [[ ! -f "$OBJ" || "$PRE" -nt "$OBJ" ]]
+            if [[ ! -f "$obj" || "$pre" -nt "$obj" ]]
             then
-                NEED_COMPILE=true
+                need_compile=true
             fi
         done
 
-        if [[ "$NEED_COMPILE" == false ]]
+        if [[ "$need_compile" == false ]]
         then
-            SKIP=true
+            skip=true
         fi
     fi
 done 3< "$1/rule/$2"

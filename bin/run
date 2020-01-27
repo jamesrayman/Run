@@ -1,43 +1,43 @@
 #!/bin/bash
 
-RUN_DIR="$(realpath "$0" | xargs dirname | xargs dirname)"
-HELP="View help with 'run help'."
+run_dir="$(realpath "$0" | xargs dirname | xargs dirname)"
+help="View help with 'run help'."
 
 if [[ $# -lt 1 ]]
 then
-    printf "No arguments provided. %s\n" "$HELP"
+    printf "No arguments provided. %s\n" "$help"
     exit 1
 fi
 
 if [[ "$1" == *.* ]]
 then
-    TARGET="$1"
-    RULE="${TARGET##*.}"
+    target="$1"
+    rule="${target##*.}"
 else
-    RULE="$1"
+    rule="$1"
     if [[ $# -ge 2 ]]
     then
-        TARGET="$2"
+        target="$2"
     else
-        TARGET=""
+        target=""
     fi
 fi
 
-if [[ "" != "$TARGET" ]]
+if [[ "" != "$target" ]]
 then
-    TARGET="$(realpath "$TARGET")"
+    target="$(realpath "$target")"
     
-    if [[ ! -f "$TARGET" && ! -d "$TARGET" ]]
+    if [[ ! -f "$target" && ! -d "$target" ]]
     then
-        printf "Target '%s' not found.\n" "$TARGET"
+        printf "Target '%s' not found.\n" "$target"
         exit 1
     fi
 fi
    
-if [[ ! -f "$RUN_DIR/rule/$RULE" ]]
+if [[ ! -f "$run_dir/rule/$rule" ]]
 then
-    printf "Rule '%s' not found.\n" "$RULE"
+    printf "Rule '%s' not found.\n" "$rule"
     exit 1
 fi
 
-"$RUN_DIR/util/run_rule" "$RUN_DIR" "$RULE" "${TARGET%.*}" <&0 || exit $?
+"$run_dir/util/run_rule" "$run_dir" "$rule" "${target%.*}" <&0 || exit $?
