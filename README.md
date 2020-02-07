@@ -22,6 +22,25 @@ run rule
 
 Run the rule `rule` with target set to empty string (this is for special rules like `help`).
 
+## Examples
+
+```text
+run tree.cpp
+```
+
+Run `tree.cpp` using the rule `cpp`.
+
+``` text
+run java prog.txt
+```
+
+Run `prog.txt` using the rule `java`.
+
+``` text
+run help
+```
+Run the rule `help`.
+
 ## Rule Specification
 
 All rules are specified in files located in the `rule` directory. Each rule is a series of commands, one per line. The type of command is determined by the first character in the line.
