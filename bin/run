@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-run_dir="$(realpath "$0" | xargs dirname | xargs dirname)"
+src_dir="$(realpath "$0" | xargs dirname | xargs dirname)"
 help="View help with 'run help'."
 
 if [[ $# -lt 1 ]]
@@ -34,10 +34,10 @@ then
     fi
 fi
    
-if [[ ! -f "$run_dir/rule/$rule" ]]
+if [[ ! -f "$src_dir/rule/$rule" ]]
 then
     printf "Rule '%s' not found.\n" "$rule"
     exit 1
 fi
 
-"$run_dir/util/run_rule" "$run_dir" "$rule" "${target%.*}" <&0 || exit $?
+"$src_dir/util/run_rule" "$src_dir" "$rule" "${target%.*}" <&0 || exit $?
