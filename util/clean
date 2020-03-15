@@ -6,6 +6,9 @@
 new_contents=""
 newline=$'\n'
 
+mkdir -p "$1/dat"
+touch "$1/dat/obj"
+
 while IFS="" read -r file || [[ -n "$file" ]]
 do
     file_dir="$(dirname "$file")"
