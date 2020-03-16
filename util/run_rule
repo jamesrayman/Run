@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# $1 = run_dir
+# $1 = src_dir
 # $2 = rule
 # $3 = target
 
