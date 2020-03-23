@@ -15,6 +15,9 @@ do
 
     if [[ "$cmd_type" == "$" ]]
     then
+        mkdir -p "$1/dat"
+        touch "$1/dat/obj"
+
         if [[ "$skip" == false ]] && ! grep -q "$obj" "$1/dat/obj"
         then
             printf "%s\n" "$obj" >> "$1/dat/obj"
