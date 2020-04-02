@@ -5,16 +5,16 @@ A universal utility for running programs
 ## Usage
 
 ```text
-run target.ext
+run target.ext ...
 ```
 
-Run the program `target.ext` using the rule `ext`, which is specified in `rule/ext`.
+Run the program `target.ext` using the rule `ext`, which is specified in `rule/ext`. Rule-specific extra arguments may be passed.
 
 ```text
-run ext target
+run ext target ...
 ```
 
-Run the program `target` using the rule `ext`.
+Run the program `target` using the rule `ext`. Rule-specific extra arguments may be passed.
 
 ```text
 run rule
@@ -53,6 +53,16 @@ All rules are specified in files located in the `rule` directory. Each rule is a
 | `#` | The line is a comment. |
 
 The string `@` is replaced with `filename` (absolute path not including `.ext`, special characters not escaped) wherever it is found in the rule file. The string `@@` is replaced with the project directory of `run` wherever it is found in the rule file.
+
+The substitutions below are performed on the rule file before running. Note that, as of now, special characters not escaped.
+
+| Symbol | Replacement |
+|--------|-------------|
+| `@%`   | absolute path of the target not including `.ext` |
+| `@/`   | project directory of `run` |
+| `@1`   | the first extra argument, the second argument is `$2`, and so on, until `$9` |
+| `@*`   | all the extra arguments |
+| `@@`   | `@` (escapes the at sign) |
 
 ## List of rules
 
