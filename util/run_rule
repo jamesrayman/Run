@@ -8,8 +8,11 @@ skip=false
 
 while IFS="" read -r cmd <&3 || [[ -n "$cmd" ]]
 do
+    # TODO: fix substitution
     cmd=${cmd//@@/$1}
     cmd=${cmd//@/$3}
+
+    # TODO: update rules
     
     cmd_type="${cmd:0:1}"
 

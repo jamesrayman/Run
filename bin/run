@@ -9,15 +9,18 @@ then
     exit 1
 fi
 
+
 if [[ "$1" == *.* ]]
 then
     target="$1"
     rule="${target##*.}"
+    extra=("${@:2}")
 else
     rule="$1"
     if [[ $# -ge 2 ]]
     then
         target="$2"
+        extra=("${@:3}")
     else
         target=""
     fi
@@ -40,4 +43,4 @@ then
     exit 1
 fi
 
-"$src_dir/util/run_rule" "$src_dir" "$rule" "${target%.*}" <&0 || exit $?
+"$src_dir/util/run_rule" "$src_dir" "$rule" "${target%.*}" "${extra[@]}" <&0 || exit $?
