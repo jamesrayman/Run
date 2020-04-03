@@ -1,19 +1,52 @@
 #!/usr/bin/env bash
 
-# $1 = src_dir
+# $1 = run project directory
 # $2 = rule
 # $3 = target
+# $4 = working directory
 
 skip=false
 
-while IFS="" read -r cmd <&3 || [[ -n "$cmd" ]]
+while IFS="" read -r pre_cmd <&3 || [[ -n "$pre_cmd" ]]
 do
-    # TODO: fix substitution
-    cmd=${cmd//@@/$1}
-    cmd=${cmd//@/$3}
+    special=false
+    cmd=""
 
-    # TODO: update rules
-    
+    for (( i=0; i < ${#pre_cmd}; i++ ))
+    do
+        ch=${pre_cmd:$i:1}
+        if [[ "$special" == true ]]
+        then
+            case "$ch" in
+                '%') cmd+=% ;;
+                '^') cmd+="$4" ;;
+                ':') cmd+="$1" ;;
+                '1') cmd+="${5}" ;;
+                '2') cmd+="${6}" ;;
+                '3') cmd+="${7}" ;;
+                '4') cmd+="${8}" ;;
+                '5') cmd+="${9}" ;;
+                '6') cmd+="${10}" ;;
+                '7') cmd+="${11}" ;;
+                '8') cmd+="${12}" ;;
+                '9') cmd+="${13}" ;;
+                '*') cmd+="${*:5}" ;;
+                '@') cmd+=@ ;;
+            esac 
+            special=false
+        else
+            if [[ "$ch" == "@" ]]
+            then
+                special=true
+            elif [[ "$ch" == "%" ]]
+            then
+                cmd+="$3"
+            else
+                cmd+="$ch"
+            fi
+        fi
+    done
+
     cmd_type="${cmd:0:1}"
 
     if [[ "$cmd_type" == "$" ]]

@@ -1,5 +1,6 @@
->@ @.cpp
-!g++ -std=c++17 -Wall -o @ @.cpp
+>% %.cpp
+!g++ -std=c++17 -Wall @* -o % %.cpp
+!echo @^
 $
 
-!@
+!%

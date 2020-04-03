@@ -52,25 +52,22 @@ All rules are specified in files located in the `rule` directory. Each rule is a
 | `$` | The line ends a block. |
 | `#` | The line is a comment. |
 
-The string `@` is replaced with `filename` (absolute path not including `.ext`, special characters not escaped) wherever it is found in the rule file. The string `@@` is replaced with the project directory of `run` wherever it is found in the rule file.
-
 The substitutions below are performed on the rule file before running. Note that, as of now, special characters not escaped.
 
 | Symbol | Replacement |
 |--------|-------------|
-| `@%`   | absolute path of the target not including `.ext` |
-| `@/`   | project directory of `run` |
+| `%`    | absolute path of the target not including `.ext` |
+| `@^`   | directory from which the command was run |
+| `@:`   | project directory of `run` |
 | `@1`   | the first extra argument, the second argument is `$2`, and so on, until `$9` |
 | `@*`   | all the extra arguments |
+| `@%`   | `%` (escapes the percent sign) |
 | `@@`   | `@` (escapes the at sign) |
 
 ## List of rules
 
-The following list of rules are all associated with their expected languages and run as expected:
-
-* `cpp`
-* `java`
-* `py`
+The following list of rules are all associated with their expected languages and run as expected: `cpp`, `java`, `py`.
+View `run help` to see more.
 
 ### `help`
 

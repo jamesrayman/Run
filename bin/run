@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-src_dir="$(realpath "$0" | xargs dirname | xargs dirname)"
 help="View help with 'run help'."
+
+src_dir="$(realpath "$0" | xargs dirname | xargs dirname)"
+working_dir="$(pwd)"
 
 if [[ $# -lt 1 ]]
 then
@@ -43,4 +45,4 @@ then
     exit 1
 fi
 
-"$src_dir/util/run_rule" "$src_dir" "$rule" "${target%.*}" "${extra[@]}" <&0 || exit $?
+"$src_dir/util/run_rule" "$src_dir" "$rule" "${target%.*}" "$working_dir" "${extra[@]}" <&0 || exit $?
