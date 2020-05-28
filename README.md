@@ -59,7 +59,7 @@ The substitutions below are performed on the rule file before running. Note that
 | `%`    | absolute path of the target not including `.ext` |
 | `@^`   | directory from which the command was run |
 | `@:`   | project directory of `run` |
-| `@1`   | the first extra argument, the second argument is `$2`, and so on, until `$9` |
+| `@1`   | the first extra argument, the second argument is `@2`, and so on, until `@9` |
 | `@*`   | all the extra arguments |
 | `@%`   | `%` (escapes the percent sign) |
 | `@@`   | `@` (escapes the at sign) |
