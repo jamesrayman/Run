@@ -1,0 +1,4 @@
+>%.pdf %.tex
+!latexmk -dvi- -pdf -quiet %.tex >/dev/null
+!latexmk -c >/dev/null 2>&1
+$
