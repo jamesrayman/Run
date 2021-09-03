@@ -1,4 +1,6 @@
 >%.pdf %.tex
 !latexmk -dvi- -pdf -quiet %.tex >/dev/null
+!for x in %-*.asy; do run "$x"; done
+!if [[ -f %-1.asy ]]; then latexmk -dvi- -pdf -quiet %.tex >/dev/null; fi
 !latexmk -c >/dev/null 2>&1
 $
